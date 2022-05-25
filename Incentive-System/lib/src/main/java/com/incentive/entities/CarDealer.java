@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -15,18 +17,21 @@ import javax.persistence.Table;
 public class CarDealer {
 
 	@Id
-	private int dealerID;
-	@Column(name = "dealername", length = 30)
-	private String dealerName;
 	@SequenceGenerator(name = "booking_seq", initialValue = 44444, sequenceName = "booking_seq", allocationSize = 1)
 	@GeneratedValue(generator = "booking_seq", strategy = GenerationType.SEQUENCE)
 	private int bookingID;
-	@Column(nullable = false)
-	private int carChassisNo;
+	@Column(name = "dealername", length = 30)
+	private String dealerName;
+
 	@Column(name = "doj", columnDefinition = "date")
 	private Date bookingDate;
-	@Column
-	private int customerId;
+
+	@OneToOne
+	@JoinColumn(name = "dealerID")
+	private CarCompany comp;
+	@OneToOne
+	@JoinColumn(name = "carChassisNo")
+	private CarDetails car;
 
 	public String getDealerName() {
 		return dealerName;
@@ -34,14 +39,6 @@ public class CarDealer {
 
 	public void setDealerName(String dealerName) {
 		this.dealerName = dealerName;
-	}
-
-	public int getDealerID() {
-		return dealerID;
-	}
-
-	public void setDealerID(int dealerID) {
-		this.dealerID = dealerID;
 	}
 
 	public int getBookingID() {
@@ -52,14 +49,6 @@ public class CarDealer {
 		this.bookingID = bookingID;
 	}
 
-	public int getCarChassisNo() {
-		return carChassisNo;
-	}
-
-	public void setCarChassisNo(int carChassisNo) {
-		this.carChassisNo = carChassisNo;
-	}
-
 	public Date getBookingDate() {
 		return bookingDate;
 	}
@@ -68,19 +57,18 @@ public class CarDealer {
 		this.bookingDate = bookingDate;
 	}
 
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-
 	@Override
 	public String toString() {
-		return "CarDealer [dealerName=" + dealerName + ", dealerID=" + dealerID + ", bookingID=" + bookingID
-				+ ", carChassisNo=" + carChassisNo + ", bookingDate=" + bookingDate + ", customerId=" + customerId
+		return "CarDealer [dealerName=" + dealerName + ", bookingID=" + bookingID + ", bookingDate=" + bookingDate
 				+ "]";
+	}
+
+	public CarCompany getComp() {
+		return comp;
+	}
+
+	public void setComp(CarCompany comp) {
+		this.comp = comp;
 	}
 
 }

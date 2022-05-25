@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -15,8 +17,21 @@ public class CarCompany {
 	@SequenceGenerator(name = "dealer_seq", initialValue = 10001, sequenceName = "dealer_seq", allocationSize = 1)
 	@GeneratedValue(generator = "dealer_seq", strategy = GenerationType.SEQUENCE)
 	private int dealerId;
+
 	@Column
 	private int noOfBooking;
+
+	@OneToOne
+	@JoinColumn(name = "incentiveId")
+	private IncentiveDetails incentive;
+
+	public IncentiveDetails getIncentive() {
+		return incentive;
+	}
+
+	public void setIncentive(IncentiveDetails incentive) {
+		this.incentive = incentive;
+	}
 
 	public int getDealerId() {
 		return dealerId;

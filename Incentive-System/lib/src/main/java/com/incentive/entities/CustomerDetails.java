@@ -3,35 +3,50 @@ package com.incentive.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "customerdetails")
 public class CustomerDetails {
 
-	@Id
-	private int bookingID;
 	@Column(name = "customername", length = 30)
 	private String customerName;
-	@Column(nullable = false, length = 10)
-	private long custContactNo;
-	@Column(nullable = false)
-	private int carChassisNo;
-	@Column(name = "dealername", length = 30)
+	@Id
+	@Column(name = "custcontactno", length = 10)
+	private String custContactNo;
+
+	@Column(name = "customermail", length = 30)
 	private String customerMail;
+
+	@OneToOne
+	@JoinColumn(name = "bookingID")
+	private CarDealer dealer;
+	@OneToOne
+	@JoinColumn(name = "carChassisNo")
+	private CarDetails car;
+
+	public CarDetails getCar() {
+		return car;
+	}
+
+	public void setCar(CarDetails car) {
+		this.car = car;
+	}
 
 	@Override
 	public String toString() {
-		return "CustomerDetails [bookingID=" + bookingID + ", customerName=" + customerName + ", custContactNo="
-				+ custContactNo + ", carChassisNo=" + carChassisNo + ", customerMail=" + customerMail + "]";
+		return "CustomerDetails [customerName=" + customerName + ", custContactNo=" + custContactNo + ", customerMail="
+				+ customerMail + ", dealer=" + dealer + ", car=" + car + "]";
 	}
 
-	public int getBookingID() {
-		return bookingID;
+	public CarDealer getDealer() {
+		return dealer;
 	}
 
-	public void setBookingID(int bookingID) {
-		this.bookingID = bookingID;
+	public void setDealer(CarDealer dealer) {
+		this.dealer = dealer;
 	}
 
 	public String getCustomerName() {
@@ -42,20 +57,12 @@ public class CustomerDetails {
 		this.customerName = customerName;
 	}
 
-	public long getCustContactNo() {
+	public String getCustContactNo() {
 		return custContactNo;
 	}
 
-	public void setCustContactNo(long custContactNo) {
+	public void setCustContactNo(String custContactNo) {
 		this.custContactNo = custContactNo;
-	}
-
-	public int getCarChassisNo() {
-		return carChassisNo;
-	}
-
-	public void setCarChassisNo(int carChassisNo) {
-		this.carChassisNo = carChassisNo;
 	}
 
 	public String getCustomerMail() {

@@ -14,20 +14,20 @@ public class CarDetails {
 	@Id
 	@SequenceGenerator(name = "chassis_seq", initialValue = 12000290, sequenceName = "chassis_seq", allocationSize = 2)
 	@GeneratedValue(generator = "chassis_seq", strategy = GenerationType.SEQUENCE)
-	private int carChassisNumber;
-	@Column
+	private int carChassisNo;
+	@Column(name = "carmodel", length = 30)
 	private String carModel;
 	@Column
 	private double price;
-	@Column
+	@Column(name = "specification", length = 100)
 	private String specifications;
 
 	public int getCarChassisNumber() {
-		return carChassisNumber;
+		return carChassisNo;
 	}
 
 	public void setCarChassisNumber(int carChassisNumber) {
-		this.carChassisNumber = carChassisNumber;
+		this.carChassisNo = carChassisNumber;
 	}
 
 	public String getCarModel() {
